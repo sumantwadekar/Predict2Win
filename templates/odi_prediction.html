@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ODI Prediction</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+	  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+		  	<div class="container-fluid">
+			    <div class="navbar-header">
+			      	<a class="navbar-brand" href="{{url_for('index')}}">predict2win</a>
+			    </div>
+		    	<ul class="nav navbar-nav">
+		     		<li class="active"><a href="{{url_for('index')}}">Home</a></li>
+		      		<li class="dropdown">
+		        		<a class="dropdown-toggle" data-toggle="dropdown" href="#">Predict Now
+		        		<span class="caret"></span></a>
+		        		<ul class="dropdown-menu">
+				          <li><a href="{{ url_for('odi_prediction') }}">ODI</a></li>
+				          <li><a href="{{ url_for('ipl') }}">IPL</a></li>
+		        		</ul>
+		      		</li>
+		      		
+		      		<li><a href="{{url_for('matches')}}" id="Matches">Matches</a></li>
+		      		
+		    	</ul>
+		  	</div>
+		</nav>
+
+		<div class="col-lg-3"></div>
+		<div class="col-lg-6">
+			<form action="{{ url_for('odi_prediction') }}" method="POST">
+		 	<div class="form-group row">
+		 		<div class="col-lg-2"></div>
+			    <label for="inputEmail3" class="col-lg-3 col-form-label">Batting Team</label>
+			    
+			    <div class="col-lg-5">
+			        <select class="form-control" name="bat" id="bat" required="required">
+			        	{%if res[0]==""%}
+			        		<option value="Afghanistan">Afghanistan</option>
+				        	<option value="Asia XI">Asia Xi</option>
+				        	<option value="Australia">Australia</option>
+				        	<option value="Bangladesh">Bangladesh</option>
+				        	<option value="Bermuda">Bermuda</option>
+				        	<option value="Canada">Canada</option>
+				        	<option value="England">England</option>
+				        	<option value="Hong Kong">Hong Kong</option>
+				        	<option value="India">India</option>
+				        	<option value="Ireland">Ireland</option>
+				        	<option value="Kenya">Kenya</option>
+				        	<option value="Netherlands">Netherlands</option>
+				        	<option value="New Zealand">New Zealand</option>
+				        	<option value="Pakistan">Pakistan</option>
+				        	<option value="Papua New Guina">Papua New Guina</option>
+				        	<option value="Scotland">Scotland</option>
+				        	<option value="South Africa">South Africa</option>
+				        	<option value="Sri Lanka">Sri Lanka</option>
+				        	<option value="UAE">UAE</option>
+				        	<option value="West Indies">West Indies</option>
+				        	<option value="Zimbabwe">Zimbabwe</option>
+				        {%else%}
+				        	<option value="{{res[0]}}">{{res[0]}}</option>
+				        	<option value="Afghanistan">Afghanistan</option>
+				        	<option value="Asia XI">Asia Xi</option>
+				        	<option value="Australia">Australia</option>
+				        	<option value="Bangladesh">Bangladesh</option>
+				        	<option value="Bermuda">Bermuda</option>
+				        	<option value="Canada">Canada</option>
+				        	<option value="England">England</option>
+				        	<option value="Hong Kong">Hong Kong</option>
+				        	<option value="India">India</option>
+				        	<option value="Ireland">Ireland</option>
+				        	<option value="Kenya">Kenya</option>
+				        	<option value="Netherlands">Netherlands</option>
+				        	<option value="New Zealand">New Zealand</option>
+				        	<option value="Pakistan">Pakistan</option>
+				        	<option value="Papua New Guina">Papua New Guina</option>
+				        	<option value="Scotland">Scotland</option>
+				        	<option value="South Africa">South Africa</option>
+				        	<option value="Sri Lanka">Sri Lanka</option>
+				        	<option value="UAE">UAE</option>
+				        	<option value="West Indies">West Indies</option>
+				        	<option value="Zimbabwe">Zimbabwe</option>
+				        {%endif%}
+			      	</select>
+			    </div>
+		  	</div>
+
+		  	<div class="form-group row">
+		 		<div class="col-lg-2"></div>
+			    <label for="inputEmail3" class="col-lg-3 col-form-label">Bowling Team</label>
+			    
+			    <div class="col-lg-5">
+			      <select class="form-control" name="bowl" id="bowl" required="required">
+			        	{%if res[1]==""%}
+			        		<option value="Afghanistan">Afghanistan</option>
+				        	<option value="Asia XI">Asia Xi</option>
+				        	<option value="Australia">Australia</option>
+				        	<option value="Bangladesh">Bangladesh</option>
+				        	<option value="Bermuda">Bermuda</option>
+				        	<option value="Canada">Canada</option>
+				        	<option value="England">England</option>
+				        	<option value="Hong Kong">Hong Kong</option>
+				        	<option value="India">India</option>
+				        	<option value="Ireland">Ireland</option>
+				        	<option value="Kenya">Kenya</option>
+				        	<option value="Netherlands">Netherlands</option>
+				        	<option value="New Zealand">New Zealand</option>
+				        	<option value="Pakistan">Pakistan</option>
+				        	<option value="Papua New Guina">Papua New Guina</option>
+				        	<option value="Scotland">Scotland</option>
+				        	<option value="South Africa">South Africa</option>
+				        	<option value="Sri Lanka">Sri Lanka</option>
+				        	<option value="UAE">UAE</option>
+				        	<option value="West Indies">West Indies</option>
+				        	<option value="Zimbabwe">Zimbabwe</option>
+				        {%else%}
+				        	<option value="{{res[1]}}">{{res[1]}}</option>
+				        	<option value="Afghanistan">Afghanistan</option>
+				        	<option value="Asia XI">Asia Xi</option>
+				        	<option value="Australia">Australia</option>
+				        	<option value="Bangladesh">Bangladesh</option>
+				        	<option value="Bermuda">Bermuda</option>
+				        	<option value="Canada">Canada</option>
+				        	<option value="England">England</option>
+				        	<option value="Hong Kong">Hong Kong</option>
+				        	<option value="India">India</option>
+				        	<option value="Ireland">Ireland</option>
+				        	<option value="Kenya">Kenya</option>
+				        	<option value="Netherlands">Netherlands</option>
+				        	<option value="New Zealand">New Zealand</option>
+				        	<option value="Pakistan">Pakistan</option>
+				        	<option value="Papua New Guina">Papua New Guina</option>
+				        	<option value="Scotland">Scotland</option>
+				        	<option value="South Africa">South Africa</option>
+				        	<option value="Sri Lanka">Sri Lanka</option>
+				        	<option value="UAE">UAE</option>
+				        	<option value="West Indies">West Indies</option>
+				        	<option value="Zimbabwe">Zimbabwe</option>
+				        {%endif%}
+			      	</select>
+			    </div>
+		  	</div>
+
+		  	<div class="form-group row">
+		 		<div class="col-lg-2"></div>
+			    <label for="inputEmail3" class="col-lg-3 col-form-label">Current Score</label>
+			    
+			    <div class="col-lg-5">
+			      <input type="text"  value="{{res[2]}}" class="form-control" id="inputEmail3" name="score" placeholder="current score" required="required">
+			    </div>
+		  	</div>
+
+		  	<div class="form-group row">
+		 		<div class="col-lg-2"></div>
+			    <label for="inputEmail3"  class="col-lg-3 col-form-label">Wickets Fallen</label>
+			    
+			    <div class="col-lg-5">
+			      <input type="text" value="{{res[3]}}" class="form-control" id="wickets" name="wickets" placeholder="wickets" onchange="wicket()" required="required">
+			    </div>
+		  	</div>
+		  	
+		  	<div class="form-group row">
+		 		<div class="col-lg-2"></div>
+			    <label for="inputEmail3" class="col-lg-3 col-form-label">Overs Bowled</label>
+			    
+			    <div class="col-lg-5">
+			      <input type="text" value="{{res[4]}}" class="form-control" id="overBowled" name="overs" placeholder="overs bowled" onchange="oversBowl()" required="required">
+			    </div>
+		  	</div>
+		  	<div class="form-group row">
+		 		<div class="col-lg-2"></div>
+			    <label for="inputEmail3" class="col-lg-3 col-form-label">Maximum Score</label>
+			    
+			    <div class="col-lg-6">
+			      <input type="text" class="form-control" value="{{res[5]}}" id="inputEmail3" name="max" placeholder="maximum of scores of striker and non-striker" required="required">
+			    </div>
+		  	</div>
+		  	<div class="form-group row">
+		 		<div class="col-lg-2"></div>
+			    <label for="inputEmail3" class="col-lg-3 col-form-label">Minimum Score</label>
+			    
+			    <div class="col-lg-6">
+			      <input type="text" class="form-control" id="inputEmail3" value="{{res[6]}}" name="min" placeholder="minimum of scores of striker and non-striker" required="required">
+			    </div>
+		  	</div>
+		  	<div class="form-group row">
+			    <div class="col-lg-5"></div>
+			    <div class="col-lg-6">
+			      <button type="submit" class="btn btn-primary" style="width: 100px;">Predict</button>
+			    </div>
+		  </div>
+
+		  <div class="form-group row">
+		  	<div class="col-lg-4"></div>
+		  	<div class="col-lg-7">
+			    <button class="btn btn-success" style="height: 65px;width: 240px;font-size: 15px;" id="scorePredict">Estimate Score : {{res[7]}} - {{res[8]}}</button>
+			</div>
+		  </div>
+	</form>
+		</div>
+	<script type="text/javascript">
+		function wicket()
+		{
+			var wkt=document.getElementById("wickets").value;
+			wkt=parseInt(wkt);
+			if(wkt>=10)
+			{
+				alert("Wickets Should be less Than 10");
+				document.getElementById("wickets").focus();
+			}
+		}
+		function oversBowl()
+		{
+			var ovr=document.getElementById("overBowled").value;
+			ovr=parseFloat(ovr);
+			if(ovr>=49.2)
+			{
+				alert("Overs Should be less Than 49.2");
+				document.getElementById("overBowled").focus();
+			}
+		}
+
+		var batteams = document.getElementById("bat");
+
+		[].slice.call(batteams.options)
+		  .map(function(a){
+		    if(this[a.value]){ 
+		      batteams.removeChild(a); 
+		    } else { 
+		      this[a.value]=1; 
+		    } 
+		},{});
+
+
+		var bowlteams = document.getElementById("bowl");
+
+		[].slice.call(bowlteams.options)
+		  .map(function(a){
+		    if(this[a.value]){ 
+		      bowlteams.removeChild(a); 
+		    } else { 
+		      this[a.value]=1; 
+		    } 
+		},{});
+	</script>
+</body>
+</html>

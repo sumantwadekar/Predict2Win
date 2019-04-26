@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>IPL Predictor</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+	  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	  	<style type="text/css">
+	  		.background1{
+	  		
+	  		}
+	  		#id1{
+	  			position: absolute;
+	  			top: 105px;
+	  			left: 320px;
+
+	  		}
+	  	</style>
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+		  	<div class="container-fluid">
+			    <div class="navbar-header">
+			      	<a class="navbar-brand" href="{{url_for('index')}}">predict2win</a>
+			    </div>
+		    	<ul class="nav navbar-nav">
+		     		<li class="active"><a href="{{url_for('index')}}">Home</a></li>
+		      		<li class="dropdown">
+		        		<a class="dropdown-toggle" data-toggle="dropdown" href="#">Predict Now
+		        		<span class="caret"></span></a>
+		        		<ul class="dropdown-menu">
+				          <li><a href="{{ url_for('odi_prediction') }}">ODI</a></li>
+				          <li><a href="{{ url_for('ipl') }}">IPL</a></li>
+		        		</ul>
+		      		</li>
+		      		<li><a href="{{url_for('matches')}}" id="Matches">Matches</a></li>
+		    	</ul>
+		  	</div>
+		</nav>
+
+
+		<div id="myCarousel" class="carousel slide" data-ride="carousel" style="height: 600px;">
+  
+		  	<ol class="carousel-indicators">
+			    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			    <li data-target="#myCarousel" data-slide-to="1"></li>
+			    <li data-target="#myCarousel" data-slide-to="2"></li>
+			    <li data-target="#myCarousel" data-slide-to="3"></li>
+			    <li data-target="#myCarousel" data-slide-to="4"></li>
+			    <li data-target="#myCarousel" data-slide-to="5"></li>
+			    <li data-target="#myCarousel" data-slide-to="6"></li>
+			    <li data-target="#myCarousel" data-slide-to="7"></li>
+			    <li data-target="#myCarousel" data-slide-to="8"></li>
+			    <li data-target="#myCarousel" data-slide-to="9"></li>
+			    <li data-target="#myCarousel" data-slide-to="10"></li>
+			    <li data-target="#myCarousel" data-slide-to="11"></li>
+		  	</ol>
+
+		  <!-- Wrapper for slides -->
+		  	<div class="carousel-inner">
+			    <div class="item active">
+			      <img src="../static/ipl_teams/mi1.png" alt="MI" style="width: 100%;">
+			    </div>
+
+		    	<div class="item">
+		      		<img src="../static/ipl_teams/csk1.png" alt="CSK" style="width: 100%">
+		    	</div>
+
+		    	<div class="item">
+		      		<img src="../static/ipl_teams/kkr1.png" alt="CSK" style="width: 100%">
+		    	</div>
+
+		    	<div class="item">
+		      		<img src="../static/ipl_teams/punjab1.png" alt="Panjab" style="width: 100%">
+		    	</div>
+
+		    	<div class="item">
+		      		<img src="../static/ipl_teams/mi3.png" alt="Panjab" style="width: 100%">
+		    	</div>
+
+		    	<div class="item">
+		      		<img src="../static/ipl_teams/rcb2.png" alt="Panjab" style="width: 100%">
+		    	</div>
+
+		    	<div class="item">
+		      		<img src="../static/ipl_teams/rr1.png" alt="Panjab" style="width: 100%">
+		    	</div>
+
+		    	<div class="item">
+		      		<img src="../static/ipl_teams/csk2.png" alt="CSK" style="width: 100%">
+		    	</div>
+
+		    	<div class="item">
+		      		<img src="../static/ipl_teams/mi4.png" alt="Panjab" style="width: 100%">
+		    	</div>
+
+		    	<div class="item">
+		      		<img src="../static/ipl_teams/srh1.png" alt="Panjab" style="width: 100%">
+		    	</div>
+
+		    	<div class="item">
+		      		<img src="../static/ipl_teams/rcb1.png" alt="Panjab" style="width: 100%">
+		    	</div>
+
+		    	<div class="item">
+		      		<img src="../static/ipl_teams/srh2.png" alt="Panjab" style="width: 100%">
+		    	</div>
+
+
+		  	</div>
+
+		  <!-- Left and right controls -->
+		  	<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+		    	<span class="glyphicon glyphicon-chevron-left"></span>
+		    	<span class="sr-only">Previous</span>
+		  	</a>
+		  	<a class="right carousel-control" href="#myCarousel" data-slide="next">
+		    	<span class="glyphicon glyphicon-chevron-right"></span>
+		    	<span class="sr-only">Next</span>
+		  	</a>
+		</div>
+
+
+			<div class="col-lg-3"></div>
+			<div class="col-lg-6" id="id1">
+				<form action="{{ url_for('ipl') }}" method="POST" >
+					<div class="form-group row">
+				 		<div class="col-lg-2"></div>
+					    <label for="inputEmail3" class="col-lg-3 col-form-label">Match Venue</label>
+					    
+					    <div class="col-lg-5">
+						    <select class="form-control" name="venue" id="venue" onchange="myFunction()">
+						    	{% if res[0]=="" %}
+						    		<option value="Barabati Stadium">Barabati Stadium</option>
+						    		<option value="Brabourne Stadium">Brabourne Stadium</option>
+							    	<option value="Buffalo Park">Buffalo Park</option>
+							    	<option value="De Beers Diamond Oval">De Beers Diamond Oval</option>
+							    	<option value="Dr DY Patil Sports Academy">Dr DY Patil Sports Academy</option>
+							    	<option value="Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium">Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium</option>
+							    	<option value="Dubai International Cricket Stadium">Dubai International Cricket Stadium</option>
+							    	<option value="Eden Gardens">Eden Gardens</option>
+							    	<option value="Feroz Shah Kotla">Feroz Shah Kotla</option>
+							    	<option value="Green Park">Green Park</option>
+							    	<option value="Himachal Pradesh Cricket Association Stadium">Himachal Pradesh Cricket Association Stadium</option>
+							    	<option value="Holkar Cricket Stadium">Holkar Cricket Stadium</option>
+							    	<option value="JSCA International Stadium Complex">JSCA International Stadium Complex</option>
+							    	<option value="Kingsmead">Kingsmead</option>
+							    	<option value="M Chinnaswamy Stadium">M Chinnaswamy Stadium</option>
+							    	<option value="MA Chidambaram Stadium, Chepauk">MA Chidambaram Stadium, Chepauk</option>
+							    	<option value="Maharashtra Cricket Association Stadium">Maharashtra Cricket Association Stadium</option>
+							    	<option value="Nehru Stadium">Nehru Stadium</option>
+							    	<option value="New Wanderers Stadium">New Wanderers Stadium</option>
+							    	<option value="Newlands">Newlands</option>
+							    	<option value="OUTsurance Oval">OUTsurance Oval</option>
+							    	<option value="Punjab Cricket Association IS Bindra Stadium, Mohali">Punjab Cricket Association IS Bindra Stadium, Mohali</option>
+							    	<option value="Punjab Cricket Association Stadium, Mohali">Punjab Cricket Association Stadium, Mohali</option>
+							    	<option value="Rajiv Gandhi International Stadium, Uppal">Rajiv Gandhi International Stadium, Uppal</option>
+							    	<option value="Sardar Patel Stadium, Motera">Sardar Patel Stadium, Motera</option>
+							    	<option value="Saurashtra Cricket Association Stadium">Saurashtra Cricket Association Stadium</option>
+							    	<option value="Sawai Mansingh Stadium">Sawai Mansingh Stadium</option>
+							    	<option value="Shaheed Veer Narayan Singh International Stadium">Shaheed Veer Narayan Singh International Stadium</option>
+							    	<option value="Sharjah Cricket Stadium">Sharjah Cricket Stadium</option>
+							    	<option value="Sheikh Zayed Stadium">Sheikh Zayed Stadium</option>
+							    	<option value="St George's Park">St George's Park</option>
+							    	<option value="Subrata Roy Sahara Stadium">Subrata Roy Sahara Stadium</option>
+							    	<option value="SuperSport Park">SuperSport Park</option>
+							    	<option value="Vidarbha Cricket Association Stadium, Jamtha">Vidarbha Cricket Association Stadium, Jamtha</option>
+							    	<option value="Wankhede Stadium">Wankhede Stadium</option>
+						    	{% else %}
+						    		<option value="{{res[0]}}">{{res[0]}}</option>
+							    	<option value="Buffalo Park">Buffalo Park</option>
+							    	<option value="De Beers Diamond Oval">De Beers Diamond Oval</option>
+							    	<option value="Dr DY Patil Sports Academy">Dr DY Patil Sports Academy</option>
+							    	<option value="Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium">Dr. Y.S. Rajasekhara Reddy ACA-VDCA Cricket Stadium</option>
+							    	<option value="Dubai International Cricket Stadium">Dubai International Cricket Stadium</option>
+							    	<option value="Eden Gardens">Eden Gardens</option>
+							    	<option value="Feroz Shah Kotla">Feroz Shah Kotla</option>
+							    	<option value="Green Park">Green Park</option>
+							    	<option value="Himachal Pradesh Cricket Association Stadium">Himachal Pradesh Cricket Association Stadium</option>
+							    	<option value="Holkar Cricket Stadium">Holkar Cricket Stadium</option>
+							    	<option value="JSCA International Stadium Complex">JSCA International Stadium Complex</option>
+							    	<option value="Kingsmead">Kingsmead</option>
+							    	<option value="M Chinnaswamy Stadium">M Chinnaswamy Stadium</option>
+							    	<option value="MA Chidambaram Stadium, Chepauk">MA Chidambaram Stadium, Chepauk</option>
+							    	<option value="Maharashtra Cricket Association Stadium">Maharashtra Cricket Association Stadium</option>
+							    	<option value="Nehru Stadium">Nehru Stadium</option>
+							    	<option value="New Wanderers Stadium">New Wanderers Stadium</option>
+							    	<option value="Newlands">Newlands</option>
+							    	<option value="OUTsurance Oval">OUTsurance Oval</option>
+							    	<option value="Punjab Cricket Association IS Bindra Stadium, Mohali">Punjab Cricket Association IS Bindra Stadium, Mohali</option>
+							    	<option value="Punjab Cricket Association Stadium, Mohali">Punjab Cricket Association Stadium, Mohali</option>
+							    	<option value="Rajiv Gandhi International Stadium, Uppal">Rajiv Gandhi International Stadium, Uppal</option>
+							    	<option value="Sardar Patel Stadium, Motera">Sardar Patel Stadium, Motera</option>
+							    	<option value="Saurashtra Cricket Association Stadium">Saurashtra Cricket Association Stadium</option>
+							    	<option value="Sawai Mansingh Stadium">Sawai Mansingh Stadium</option>
+							    	<option value="Shaheed Veer Narayan Singh International Stadium">Shaheed Veer Narayan Singh International Stadium</option>
+							    	<option value="Sharjah Cricket Stadium">Sharjah Cricket Stadium</option>
+							    	<option value="Sheikh Zayed Stadium">Sheikh Zayed Stadium</option>
+							    	<option value="St George's Park">St George's Park</option>
+							    	<option value="Subrata Roy Sahara Stadium">Subrata Roy Sahara Stadium</option>
+							    	<option value="SuperSport Park">SuperSport Park</option>
+							    	<option value="Vidarbha Cricket Association Stadium, Jamtha">Vidarbha Cricket Association Stadium, Jamtha</option>
+							    	<option value="Wankhede Stadium">Wankhede Stadium</option>
+							    	{% endif %}
+						    </select>
+					    </div>
+			  		</div>
+
+				 	<div class="form-group row">
+				 		<div class="col-lg-2"></div>
+					    <label for="inputEmail3" class="col-lg-3 col-form-label">Batting Team</label>
+					    
+					    <div class="col-lg-5">
+					      	<select class="form-control" name="battingteam" id="bteam">
+					      		{%if res[1]=="" %}
+					      			<option value="Chennai Super Kings">Chennai Super Kings</option>
+						      		<option value="Delhi Capitals">Delhi Capitals</option>
+						      		<option value="Kings XI Punjab">Kings XI Punjab</option>
+						      		<option value="Kolkata Knight Riders">Kolkata Knight Riders</option>
+						      		<option value="Mumbai Indians">Mumbai Indians</option>
+						      		<option value="Rajasthan Royals">Rajasthan Royals</option>
+						      		<option value="Royal Challengers Bangalore">Royal Challengers Bangalore</option>
+						      		<option value="Sunrisers Hyderabad">Sunrisers Hyderabad</option>
+						      	{% else %}
+						      		<option value="{{res[1]}}">{{res[1]}}</option>
+						      		<option value="Delhi Capitals">Delhi Capitals</option>
+						      		
+						      		<option value="Kings XI Punjab">Kings XI Punjab</option>
+						      		
+						      		<option value="Kolkata Knight Riders">Kolkata Knight Riders</option>
+						      		<option value="Mumbai Indians">Mumbai Indians</option>
+						      		
+						      		<option value="Rajasthan Royals">Rajasthan Royals</option>
+						      		
+						      		<option value="Royal Challengers Bangalore">Royal Challengers Bangalore</option>
+						      		<option value="Sunrisers Hyderabad">Sunrisers Hyderabad</option>
+						      	{%endif%}
+					      	</select>
+					    </div>
+				  	</div>
+
+				  	<div class="form-group row">
+				 		<div class="col-lg-2"></div>
+					    <label for="inputEmail3" class="col-lg-3 col-form-label">Bowling Team</label>
+					    
+					    <div class="col-lg-5">
+					      	<select class="form-control" name="bowlingteam" id="bteam">
+					      		{%if res[2]=="" %}
+					      			<option value="Chennai Super Kings">Chennai Super Kings</option>
+						      		<option value="Delhi Capitals">Delhi Capitals</option>
+						      		<option value="Kings XI Punjab">Kings XI Punjab</option>
+						      		<option value="Kolkata Knight Riders">Kolkata Knight Riders</option>
+						      		<option value="Mumbai Indians">Mumbai Indians</option>
+						      		<option value="Rajasthan Royals">Rajasthan Royals</option>
+						      		<option value="Royal Challengers Bangalore">Royal Challengers Bangalore</option>
+						      		<option value="Sunrisers Hyderabad">Sunrisers Hyderabad</option>
+						      	{% else %}
+						      		<option value="{{res[2]}}">{{res[2]}}</option>
+						      		<option value="Delhi Capitals">Delhi Capitals</option>
+						      		
+						      		<option value="Kings XI Punjab">Kings XI Punjab</option>
+						      		
+						      		<option value="Kolkata Knight Riders">Kolkata Knight Riders</option>
+						      		<option value="Mumbai Indians">Mumbai Indians</option>
+						      		
+						      		<option value="Rajasthan Royals">Rajasthan Royals</option>
+						      		
+						      		<option value="Royal Challengers Bangalore">Royal Challengers Bangalore</option>
+						      		<option value="Sunrisers Hyderabad">Sunrisers Hyderabad</option>
+						      	{%endif%}
+					      	</select>
+					    </div>
+				  	</div>
+
+				  	<div class="form-group row">
+				 		<div class="col-lg-2"></div>
+					    <label for="inputEmail3" class="col-lg-3 col-form-label">Current Score</label>
+					    
+					    <div class="col-lg-5">
+					      <input type="text"  value="{{res[3]}}" class="form-control" id="inputEmail3" name="score" placeholder="current score">
+					    </div>
+				  	</div>
+
+				  	<div class="form-group row">
+				 		<div class="col-lg-2"></div>
+					    <label for="inputEmail3"  class="col-lg-3 col-form-label">Wickets Fallen</label>
+					    
+					    <div class="col-lg-5">
+					      <input type="text" value="{{res[4]}}" class="form-control" id="inputEmail3" name="wickets" placeholder="wickets">
+					    </div>
+				  	</div>
+			  	
+				  	<div class="form-group row">
+				 		<div class="col-lg-2"></div>
+					    <label for="inputEmail3" class="col-lg-3 col-form-label">Overs Bowled</label>
+					    
+					    <div class="col-lg-5">
+					      <input type="text" value="{{res[5]}}" class="form-control" id="overs" name="overs" placeholder="overs bowled" onchange="index()">
+
+					    </div>
+					    
+				  	</div>
+
+				  	<div class="form-group row">
+				 		<div class="col-lg-2"></div>
+					    <label for="inputEmail3" class="col-lg-3 col-form-label">Maximum Score</label>
+					    
+					    <div class="col-lg-6">
+					      <input type="text" class="form-control" value="{{res[6]}}" id="inputEmail3" name="max" placeholder="maximum of scores of striker and non-striker">
+					    </div>
+				  	</div>
+				  	<div class="form-group row">
+				 		<div class="col-lg-2"></div>
+					    <label for="inputEmail3" class="col-lg-3 col-form-label">Minimum Score</label>
+					    
+					    <div class="col-lg-6">
+					      <input type="text" class="form-control" id="inputEmail3" value="{{res[7]}}" name="min" placeholder="minimum of scores of striker and non-striker">
+					    </div>
+				  	</div>
+				  	<div class="form-group row">
+					    <div class="col-lg-5"></div>
+					    <div class="col-lg-6">
+					      <button type="submit" onclick="return index()" class="btn btn-primary" style="width: 100px;">Predict</button>
+					    </div>
+				  	</div>
+
+				  <div class="form-group row">
+				  	<div class="col-lg-4"></div>
+				  	<div class="col-lg-7">
+					    <button class="btn btn-success"  style="height: 65px;width: 240px;font-size: 15px;" id="scorePredict">Estimate Score : {{res[8]}} - {{res[9]}}</button>
+					</div>
+				  </div>
+			</form>
+		</div>
+	<script type="text/javascript">
+		var venues = document.getElementById("venue");
+
+		[].slice.call(venues.options)
+		  .map(function(a){
+		    if(this[a.value]){ 
+		      venues.removeChild(a); 
+		    } else { 
+		      this[a.value]=1; 
+		    } 
+		},{});
+
+
+		var bteams = document.getElementById("bteam");
+
+		[].slice.call(bteams.options)
+		  .map(function(a){
+		    if(this[a.value]){ 
+		      bteams.removeChild(a); 
+		    } else { 
+		      this[a.value]=1; 
+		    } 
+		},{});
+
+		function index(){
+			var over=document.getElementById("overs").value;
+			over=parseFloat(over);
+			if(over>19.2)
+			{
+				alert("Enter Value less than 19.2");
+			}
+			
+		}
+
+
+	</script>
+</body>
+</html>

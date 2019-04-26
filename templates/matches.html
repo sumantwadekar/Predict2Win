@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Matches
+	</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+	  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body style="background-image: url('../static/ipl_flags/ipl.png')">
+	<nav class="navbar navbar-inverse">
+	  	<div class="container-fluid">
+		    <div class="navbar-header">
+		      	<a class="navbar-brand" href="{{url_for('index')}}">predict2win</a>
+		    </div>
+	    	<ul class="nav navbar-nav">
+	     		<li class="active"><a href="{{url_for('index')}}">Home</a></li>
+	      		<li class="dropdown">
+	        		<a class="dropdown-toggle" data-toggle="dropdown"  href="">Predict Now
+	        		<span class="caret"></span></a>
+	        		<ul class="dropdown-menu">
+			          <li><a href="{{ url_for('odi_prediction') }}">ODI</a></li>
+			          <li><a href="{{url_for('ipl')}}">IPL</a></li>
+	        		</ul>
+	      		</li>
+	      		
+	      		<li><a href="{{url_for('matches')}}" id="Matches">Matches</a></li>
+	    	</ul>
+	  	</div>
+	</nav>
+
+	<div class="row" >
+		<div class="col-lg-1"></div>
+		<div class="col-lg-3" style="border: 5px solid black; border-radius: 15px;background-color: beige;background-color: transparent;">
+			<center><span style="font-weight: bold;font-family: cursive;font-size: 25px;">Upcoming Matches</span></center>
+			<br>
+			<div class="col-lg-1"></div>
+			<div class="col-lg-10">
+				<table class="table table-stripped">
+					<tr>
+						<td>
+							<center>
+								<span style="font-weight: bold;font-family: cursive;">{{res[0]}}</span>
+								{% if res['up_team1']=="Rajasthan Royals" %}
+									<img src="../static/ipl_flags/logo_rr.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['up_team1']=="Chennai Super Kings" %}
+									<img src="../static/ipl_flags/logo_csk.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['up_team1']=="Mumbai Indians" %}
+									<img src="../static/ipl_flags/logo_mi.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['up_team1']=="Delhi Capitals" %}
+									<img src="../static/ipl_flags/logo_delhi.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['up_team1']=="Royal Challengers Bangalore" %}
+									<img src="../static/ipl_flags/logo_rcb.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['up_team1']=="Kolkata Knight Riders" %}
+									<img src="../static/ipl_flags/logo_kkr.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['up_team1']=="Kings XI Punjab" %}
+									<img src="../static/ipl_flags/logo_kxip.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['up_team1']=="Sunrisers Hyderabad" %}
+									<img src="../static/ipl_flags/logo_srh.png" height="90px" width="150px">
+								{% endif %}
+							</center>
+						</td>
+					</tr>
+					<tr><td><center>Vs</center></td></tr>
+
+					<tr>
+						<td>
+							<center>
+								<span style="font-weight: bold;font-family: cursive;">{{res[1]}}</span>
+								{% if res['up_team2']=="Rajasthan Royals" %}
+									<img src="../static/ipl_flags/logo_rr.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['up_team2']=="Chennai Super Kings" %}
+									<img src="../static/ipl_flags/logo_csk.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['up_team2']=="Mumbai Indians" %}
+									<img src="../static/ipl_flags/logo_mi.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['up_team2']=="Delhi Capitals" %}
+									<img src="../static/ipl_flags/logo_delhi.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['up_team2']=="Royal Challengers Bangalore" %}
+									<img src="../static/ipl_flags/logo_rcb.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['up_team2']=="Kolkata Knight Riders" %}
+									<img src="../static/ipl_flags/logo_kkr.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['up_team2']=="Kings XI Punjab" %}
+									<img src="../static/ipl_flags/logo_kxip.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['up_team2']=="Sunrisers Hyderabad" %}
+									<img src="../static/ipl_flags/logo_srh.png" height="90px" width="150px">
+								{% endif %}
+							</center>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="font-weight: bold"><center>Venue :  {{res['up_venue_name']}}, {{res['up_venue_location']}}</center></td>
+					</tr>
+					<tr>
+						<td style="font-weight: bold"><center>{{res['up_status']}}</center></td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-lg-1"></div>
+		</div>
+
+		<div class="col-lg-1"></div>
+
+		<div class="col-lg-3" style="border: 5px solid black; border-radius: 15px;background-color: beige;background-color: transparent;">
+			<center><span style="font-weight: bold;font-family: cursive;font-size: 25px;">Live Matches</span></center>
+
+			<br>
+			<div class="col-lg-1"></div>
+			<div class="col-lg-10">
+				<table class="table table-stripped" style="border-collapse: collapse;">
+					<tr>
+						<td>
+							<center>
+								<span style="font-weight: bold;font-family: cursive;" >{{res[10]}}</span>
+								{% if res['live_team1']=="Rajasthan Royals" %}
+									<img src="../static/ipl_flags/logo_rr.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['live_team1']=="Chennai Super Kings" %}
+									<img src="../static/ipl_flags/logo_csk.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['live_team1']=="Mumbai Indians" %}
+									<img src="../static/ipl_flags/logo_mi.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['live_team1']=="Delhi Capitals" %}
+									<img src="../static/ipl_flags/logo_delhi.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['live_team1']=="Royal Challengers Bangalore" %}
+									<img src="../static/ipl_flags/logo_rcb.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['live_team1']=="Kolkata Knight Riders" %}
+									<img src="../static/ipl_flags/logo_kkr.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['live_team1']=="Kings XI Punjab" %}
+									<img src="../static/ipl_flags/logo_kxip.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['live_team1']=="Sunrisers Hyderabad" %}
+									<img src="../static/ipl_flags/logo_srh.png" height="90px" width="150px">
+								{% endif %}
+							</center>
+						</td>
+					</tr>
+					<tr><td><center>Vs</center></td></tr>
+
+					<tr>
+						<td>
+							<center>
+								<span style="font-weight: bold;font-family: cursive;">{{res[6]}}</span>
+								{% if res['live_team2']=="Rajasthan Royals" %}
+									<img src="../static/ipl_flags/logo_rr.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['live_team2']=="Chennai Super Kings" %}
+									<img src="../static/ipl_flags/logo_csk.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['live_team2']=="Mumbai Indians" %}
+									<img src="../static/ipl_flags/logo_mi.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['live_team2']=="Delhi Capitals" %}
+									<img src="../static/ipl_flags/logo_delhi.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['live_team2']=="Royal Challengers Bangalore" %}
+									<img src="../static/ipl_flags/logo_rcb.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['live_team2']=="Kolkata Knight Riders" %}
+									<img src="../static/ipl_flags/logo_kkr.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['live_team2']=="Kings XI Punjab" %}
+									<img src="../static/ipl_flags/logo_kxip.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['live_team2']=="Sunrisers Hyderabad" %}
+									<img src="../static/ipl_flags/logo_srh.png" height="90px" width="150px">
+								{% endif %}
+							</center>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="font-weight: bold"><center>Venue :  {{res['live_venue_name']}}, {{res['live_venue_location']}}</center></td>
+					</tr>
+					<tr>
+						<td style="font-weight: bold"><center>Score : {{res['live_runs']}}-{{res['live_wickets']}}</center></td>
+					</tr>
+					<tr>
+						<td style="font-weight: bold"><center>Overs : {{res['live_overs']}}</center></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="col-lg-1"></div>
+
+		<div class="col-lg-2" style="border: 5px solid black; border-radius: 15px;background-color: beige;background-color: transparent;">
+			<center><span style="font-weight: bold;font-family: cursive;font-size: 25px;">Past Matches</span></center>
+			<br>
+			
+			<div class="col-lg-10">
+				<table class="table table-stripped" style="border-collapse: collapse;">
+					<tr>
+						<td>
+							<center>
+								<span style="font-weight: bold;font-family: cursive;" >{{res['past_team1']}}</span>
+								{% if res['past_team1']=="Rajasthan Royals" %}
+									<img src="../static/ipl_flags/logo_rr.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['past_team1']=="Chennai Super Kings" %}
+									<img src="../static/ipl_flags/logo_csk.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['past_team1']=="Mumbai Indians" %}
+									<img src="../static/ipl_flags/logo_mi.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['past_team1']=="Delhi Capitals" %}
+									<img src="../static/ipl_flags/logo_delhi.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['past_team1']=="Royal Challengers Bangalore" %}
+									<img src="../static/ipl_flags/logo_rcb.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['past_team1']=="Kolkata Knight Riders" %}
+									<img src="../static/ipl_flags/logo_kkr.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['past_team1']=="Kings XI Punjab" %}
+									<img src="../static/ipl_flags/logo_kxip.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['past_team1']=="Sunrisers Hyderabad" %}
+									<img src="../static/ipl_flags/logo_srh.png" height="90px" width="150px">
+								{% endif %}
+							</center>
+						</td>
+					</tr>
+					<tr><td><center>Vs</center></td></tr>
+
+					<tr>
+						<td>
+							<center>
+								<span style="font-weight: bold;font-family: cursive;">{{res['past_team2']}}</span>
+								{% if res['past_team2']=="Rajasthan Royals" %}
+									<img src="../static/ipl_flags/logo_rr.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['past_team2']=="Chennai Super Kings" %}
+									<img src="../static/ipl_flags/logo_csk.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['past_team2']=="Mumbai Indians" %}
+									<img src="../static/ipl_flags/logo_mi.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['past_team2']=="Delhi Capitals" %}
+									<img src="../static/ipl_flags/logo_delhi.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['past_team2']=="Royal Challengers Bangalore" %}
+									<img src="../static/ipl_flags/logo_rcb.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['past_team2']=="Kolkata Knight Riders" %}
+									<img src="../static/ipl_flags/logo_kkr.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['past_team2']=="Kings XI Punjab" %}
+									<img src="../static/ipl_flags/logo_kxip.png" height="90px" width="150px">
+								{% endif %}
+								{% if res['past_team2']=="Sunrisers Hyderabad" %}
+									<img src="../static/ipl_flags/logo_srh.png" height="90px" width="150px">
+								{% endif %}
+							</center>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="font-weight: bold"><center>Venue :  {{res['past_venue_name']}}, {{res['past_venue_location']}}</center></td>
+					</tr>
+					<tr>
+						<td style="font-weight: bold"><center>Result : {{res['past_status']}}</center></td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-lg-1"></div>
+
+		</div>
+		<div class="col-lg-1"></div>
+	</div>
+</body>
+</html>
